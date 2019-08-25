@@ -1,7 +1,7 @@
 from flask import Flask, request
 import json
 # metodos
-import function_zeros
+import function_zeros, interpolation
 
 
 app = Flask(__name__)
@@ -109,10 +109,32 @@ def f_secant():
 	return function_zeros.start_secant(x0, x1, error, function)
 
 
+'''
+Exemplo de input esperado:
+{
+	"x": "3, 5, 7, 8",
+	"y": "1, 9, 0, 11"
+}
+'''
+@app.route('/lagrange', methods=['POST'])
+def f_lagrange():
+	x = request.json['x']
+	y = request.json['y']
+	return interpolation.start_lagrange(x, y)
 
 
-
-
+'''
+Exemplo de input esperado:
+{
+	"x": "3, 5, 7, 8",
+	"d0": "1, 9, 0, 11"
+}
+'''
+@app.route('/newton_polynomial', methods=['POST'])
+def f_newton_polynomial():
+	x = request.json['x']
+	d0 = request.json['d0']
+	return interpolation.start_newton_polynomial(x, d0)
 
 if __name__ == '__main__':
 	app.run()
