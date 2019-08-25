@@ -2,11 +2,11 @@ import json
 
 def write(function: str, name_file: str):
     file_function_content = '''
-    from math import *
-    
-    def f(x):
-        x = float(x)
-        return {0}
+from math import *
+   
+def f(x):
+    x = float(x)
+    return {0}
     '''
 
     math_functions_convert = (
