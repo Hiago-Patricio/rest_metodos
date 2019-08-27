@@ -14,12 +14,14 @@ def reload():
 def start_bisection(a, b, error, func):
     a, b, error = auxiliary.n_float(a, b, error)
     auxiliary.write(func, 'function')
+    reload()
     return method_bisection(a, b, error)
 
 
 def start_false_position(a, b, error, func):
     a, b, error = auxiliary.n_float(a, b, error)
     auxiliary.write(func, 'function')
+    reload()
     return method_false_position(a, b, error)
 
 
@@ -27,12 +29,14 @@ def start_newton_raphson(x, error, func, derivative):
     x, error = auxiliary.n_float(x, error)
     auxiliary.write(func, 'function')
     auxiliary.write(derivative, 'derivative')
+    reload()
     return method_newton_raphson(x, error)
 
 
 def start_secant(x0, x1, error, func):
     x0, x1, error = auxiliary.n_float(x0, x1, error)
     auxiliary.write(func, 'function')
+    reload()
     return method_secant(x0, x1, error)
 
 
