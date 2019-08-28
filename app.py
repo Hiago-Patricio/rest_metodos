@@ -136,5 +136,33 @@ def f_newton_polynomial():
 	d0 = request.json['d0']
 	return interpolation.start_newton_polynomial(x, d0)
 
+
+'''
+Exemplo de input esperado:
+{
+	"x": "0,1,2,3",
+	"y": "1,3,-2,1"
+}
+'''
+@app.route('/trigonometric', methods=['POST'])
+def f_trigonometic():
+	x = request.json['x']
+	y = request.json['y']
+	return interpolation.start_trigonometric(x, y)
+
+'''
+Exemplo de input esperado:
+{
+	"x": "3, 5, 7, 8",
+	"y": "1, 9, 0, 11"
+}
+'''
+@app.route('/spline', methods=['POST'])
+def f_spline():
+	x = request.json['x']
+	y = request.json['y']
+	return interpolation.start_spline(x, y)
+
+
 if __name__ == '__main__':
 	app.run()
