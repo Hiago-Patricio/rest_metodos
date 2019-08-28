@@ -79,7 +79,7 @@ Exemplo de input esperado:
 	"x": "3", 
 	"error": "0.01",
 	"function": "log(x) - x + 2", 
-	"derivative_function": "1/x/ln(10)-1"
+	"derivative": "1/x/ln(10)-1"
 }
 '''
 @app.route('/newton_raphson', methods=['POST'])
@@ -87,7 +87,7 @@ def f_newton_raphson():
 	x = request.json['x']
 	error = request.json['error']
 	function = request.json['function']
-	derivative_function = request.json['derivative_function']
+	derivative_function = request.json['derivative']
 	return function_zeros.start_newton_raphson(x, error, function, derivative_function)
 
 

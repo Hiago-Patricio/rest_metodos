@@ -31,7 +31,7 @@ def f(x):
 
 # Arredondamento para erro permitido
 def rounding(num: float, aproximation: float):
-    digits = int(math.ceil(math.fabs(math.log10(aproximation))))
+    digits = int(math.ceil(math.fabs(math.log10(aproximation)))+1)
     return round(num, digits)
 
 

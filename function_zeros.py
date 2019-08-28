@@ -46,47 +46,41 @@ def method_bisection(a: float, b: float, error: float):
         f_a = auxiliary.rounding(f_a, error)
         f_b = function.f(b)
         f_b = auxiliary.rounding(f_b, error)
-        x = (a + b) / 2
-        f_x = function.f(x)
-        f_x = auxiliary.rounding(f_x, error)
 
         if math.fabs(f_a) <= error:
             return auxiliary.convert_json('x', a)
         elif math.fabs(f_b) <= error:
             return auxiliary.convert_json('x', b)
-        elif math.fabs(f_x) <= error:
-            return auxiliary.convert_json('x', x)
-        elif (f_a * f_x) < 0:
-            b = auxiliary.rounding(x, error)
-        elif (f_b * f_x) < 0:
-            a = auxiliary.rounding(x, error)
+        elif f_a * f_b < 0:
+            x = (a + b) / 2
+            f_x = function.f(x)
+            f_x = auxiliary.rounding(f_x, error)
+            if f_a * f_x < 0:
+                b = x
+            else:
+                a = x
         else:
-            return auxiliary.convert_json('x', None)
+            return auxiliary.convert_json('x', 'Inválido')
 
 
 def method_false_position(a: float, b: float, error: float):
     while True:
         f_a = function.f(a)
-        f_a = auxiliary.rounding(f_a, error)
         f_b = function.f(b)
-        f_b = auxiliary.rounding(f_b, error)
-        x = (a * f_b - b * f_a) / (f_b - f_a)
-        x = auxiliary.rounding(x, error)
-        f_x = function.f(x)
-        f_x = auxiliary.rounding(f_x, error)
 
         if math.fabs(f_a) <= error:
             return auxiliary.convert_json('x', a)
         elif math.fabs(f_b) <= error:
             return auxiliary.convert_json('x', b)
-        elif math.fabs(f_x) <= error:
-            return auxiliary.convert_json('x', x)
-        elif (f_a * f_x) < 0:
-            b = auxiliary.rounding(x, error)
-        elif (f_b * f_x) < 0:
-            a = auxiliary.rounding(x, error)
+        elif f_a * f_b < 0:
+            x = (a * f_b - b * f_a) / (f_b - f_a)
+            f_x = function.f(x)
+            if f_a * f_x < 0:
+                b = x
+            else:
+                a = x
         else:
-            return auxiliary.convert_json('x', None)
+            return auxiliary.convert_json('x', 'Inválido')
 
 
 def method_newton_raphson(x: float, error: float):
