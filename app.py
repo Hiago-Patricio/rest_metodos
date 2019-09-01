@@ -5,6 +5,7 @@ import correlation
 import function_zeros, interpolation
 import intervals
 import regression
+import resampling
 
 app = Flask(__name__)
 
@@ -211,8 +212,8 @@ def f_kendall():
 '''
 Exemplo de input esperado:
 {
-	"y": "139,126,90,144,163,136,61,62,41,120",
 	"x": "122,114,86,134,146,107,68,117,71,98"
+	"y": "139,126,90,144,163,136,61,62,41,120",
 }
 '''
 @app.route('/linear', methods=['POST'])
@@ -231,7 +232,7 @@ Exemplo de input esperado:
 	"dpp": "5",
 	"n": "100",
 	"media": "500", 
-	"conf": "0.475" 
+	"conf": "0.95" 
 }
 '''
 @app.route('/normal', methods=['POST'])
@@ -276,29 +277,35 @@ def f_populacional():
 
 
 '''
-Bootstrap
-Exemplo de input esperado:
-	"amostra": "2.2, 2.5, 3.4, 6.7, 6.2, 8.2, 9.2, 7.9, 9.2, 10.1"
-'''
-
-
-'''
-Exemplo de input esperado:
-	"populacao": 
-'''
-
-
-
-'''
+conf = Confiança
 Exemplo de input esperado:
 {
-    "dpp": 
-    "n": 
-    "media": 
-    
+	"amostra": "2.2, 2.5, 3.4, 6.7, 6.2, 8.2, 9.2, 7.9, 9.2, 10.1",
+	"vezes": "5",
+	"conf": "0.95"
 }
 '''
+@app.route('/bootstrap', methods=['POST'])
+def f_bootstrap():
+    amostra = request.json['amostra']
+    vezes = request.json['vezes']
+    conf = request.json['conf']
+    return  resampling.start_bootstrap(amostra, vezes, conf)
 
+
+'''
+conf = Confiança
+Exemplo de input esperado:
+{
+	"amostra": "2.2, 2.5, 3.4, 6.7, 6.2, 8.2, 9.2, 7.9, 9.2, 10.1",
+    "conf": "0.95"
+}
+'''
+@app.route('/jackknife', methods=['POST'])
+def f_jackknife():
+    amostra = request.json['amostra']
+    conf = request.json['conf']
+    return  resampling.start_jackknife(amostra, conf)
 
 
 if __name__ == '__main__':
